@@ -1,0 +1,9 @@
+{
+  "name": "FullWidthHeadline.js",
+  "version": "1.0",
+  "main": "jquery.fullWidthHeadline.js",
+  "ignore": [],
+  "dependencies": {
+    "jquery": "latest"
+  }
+}
