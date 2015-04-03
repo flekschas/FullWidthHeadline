@@ -6,7 +6,7 @@
       "homepage": "http://f.lekschas.de"
     }
   ],
-  "version": "1.0",
+  "version": "1.0.0-beta",
   "description": "Stretches a headline to span 100% width.",
   "license": "MIT",
   "main": "jquery.fullWidthHeadline.js",
