@@ -1,8 +1,27 @@
 {
   "name": "FullWidthHeadline.js",
+  "authors": [
+    {
+      "name": "Fritz Lekschas",
+      "homepage": "http://f.lekschas.de"
+    }
+  ],
   "version": "1.0",
+  "description": "Stretches a headline to span 100% width.",
+  "license": "MIT",
   "main": "jquery.fullWidthHeadline.js",
-  "ignore": [],
+  "keywords": [
+    "plugin",
+    "jquery",
+    "javascript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/flekschas/FullWidthHeadline.git"
+  },
+  "ignore": [
+    "**/.*",
+  ],
   "dependencies": {
     "jquery": "latest"
   }
