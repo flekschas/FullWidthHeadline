@@ -1,0 +1,100 @@
+html, body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    font-weight: 300;
+    color: #888;
+    background: #eee;
+}
+
+h1, h2, h3, p {
+    line-height: 1.5;
+}
+
+h1 {
+    font-size: 2.5em;
+    font-weight: 900;
+    margin: 0.33em 0 0.2em 0;
+    text-align: center;
+    text-transform: uppercase;
+    color: #222;
+}
+
+h2 {
+    font-size: 1.66em;
+    font-weight: 700;
+    text-align: center;
+    color: #444;
+}
+
+h3 {
+    font-size: 1.25em;
+    font-weight: normal;
+    text-align: center;
+    color: #888;
+}
+
+p {
+    text-align: justify;
+}
+
+#container {
+    position: relative;
+    margin: 0 16.6667%;
+    border-left: 0.125em dashed #fff;
+    border-right: 0.125em dashed #fff;
+}
+
+.full-width-hl .container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    /* Old Syntax */
+    -webkit-box-orient: horizontal;
+       -moz-box-orient: horizontal;
+            box-orient: horizontal;
+    -webkit-box-align: center;
+       -moz-box-align: center;
+            box-align: center;
+    -webkit-box-pack: center;
+       -moz-box-pack: center;
+            box-pack: center;
+
+    /* New syntax */
+    -webkit-flex-flow: row nowrap;
+        -ms-flex-flow: row nowrap;
+            flex-flow: row nowrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    -webkit-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+}
+
+.full-width-hl .centered-words {
+    -webkit-justify-content: center;
+            justify-content: center;
+}
+
+.full-width-hl .container span {
+    margin-left: 0.25em;
+}
+
+.full-width-hl .container span:first-child {
+    margin-left: 0;
+}
+
+.full-width-hl:hover .container span {
+    color: #000;
+    background: yellow;
+}
