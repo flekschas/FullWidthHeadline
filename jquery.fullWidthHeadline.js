@@ -1,5 +1,5 @@
 /*
- * FullWidthHeadline.js v0.1
+ * FullWidthHeadline.js v1.0.1
  * Copyright (c) 2015, Fritz Lekschas http://f.lekschas.de
  *
  * FullWidthHeadline.js is licensed under the MIT License.
@@ -10,13 +10,16 @@
 
   $.fn.fullWidthHeadline = function(options) {
 
-    var $container,
-        fontWidth = 0,
-        numChars = 0,
+    var fontWidth = 0,
         settings = $.extend({
+          // MSEC
           delay: 250,
+          // EM
           maxFontSize: 3,
-          whitespaceWidth: 1,
+          // EM
+          maxLetterSpacing: 0.5,
+          // EM
+          wordSpacing: 0.125,
         }, options);
 
     function debounce (fn, delay) {
@@ -43,51 +46,74 @@
             })
             .appendTo($('body'));
 
-      // Store font width globally
-      fontWidth = element.width();
+      var width = element.width();
 
       // Clean DOM
       element.remove();
+
+      return width;
     }
 
-    function init ($el) {
-      var text = $el.text(),
-          chars = text.split(' '),
+    function init (el) {
+      var $container,
+          $el = $(el),
+          text = $el.text(),
+          words = text.split(' '),
           inject = '<span class="container">';
 
-      numChars = text.length;
+      el.numChars = text.length;
+      el.numWords = words.length;
 
-      if (chars.length) {
-        $(chars).each(function(i, character) {
-          if (character === ' ') {
-            inject += ' ';
-          } else {
-            inject += '<span class="char'+ (i + 1) +'" aria-hidden="true">'+ character +'</span> ';
-          }
-        });
+      if (el.numWords) {
+        for (var i = 0, len = words.length; i < len; i++) {
+          inject += '<span class="word-'+ (i + 1) +'">'+ words[i] +'</span> ';
+        }
 
+        // Remove last white space and close container
         $container = $($.parseHTML(inject.slice(0, -1) + '</span>'));
+        el.$container = $container;
+
+        if (words.length < 3) {
+          $container.addClass('centered-words');
+        }
 
         $el
-          .attr('aria-label', text)
           .empty()
           .append($container);
 
         // Set default font to the elements font family
+        var styles;
+
+        if (!settings.font && window.getComputedStyle) {
+          styles = window.getComputedStyle(el, null);
+        }
+        if (!settings.font && !styles && el.currentStyle) {
+          styles = el.currentStyle;
+        }
+        if (!settings.font && !styles && el.style) {
+          styles = el.style;
+        }
+        if (styles) {
+          try {
+            settings.font = styles.getPropertyValue('fontFamily');
+          } catch (e) {}
+        }
         settings.font = settings.font || $el.css('font-family');
 
-        getFontWidth(text);
-        updateFontSize($el);
+        el.fontWidth = getFontWidth(text);
+        updateFontSize(el);
       }
     }
 
-    function updateFontSize ($el) {
-      var elw = $el.width(),
+    function updateFontSize (el) {
+      var $el = $(el),
+          elw = $el.width(),
           elFontSize = parseFloat($el.css('font-size')),
-          fontSize = parseFloat(((elw / fontWidth) * 16 * 0.999).toFixed(3)),
+          fontSize = parseFloat(((elw / el.fontWidth) * 16 * 0.999).toFixed(3)),
           maxFontSize = elFontSize * settings.maxFontSize,
           css = {
-            fontSize: null
+            fontSize: '',
+            letterSpacing: ''
           };
 
       if (fontSize < maxFontSize) {
@@ -97,20 +123,24 @@
         // Use max font size.
         css.fontSize = settings.maxFontSize + 'em';
         // Adjust letter spacing.
-        css.letterSpacing = ((elw - (fontWidth * maxFontSize / 16)) / maxFontSize) / numChars + 'em';
+        css.letterSpacing = Math.min(
+          settings.maxLetterSpacing,
+          ((elw - (el.fontWidth * maxFontSize / 16)) / maxFontSize) / el.numChars
+        ) + 'em';
       }
 
-      $container.css(css);
+      el.$container.css(css);
     }
 
+    var that = this;
+    $(window).on('resize orientationchange', debounce(function () {
+      that.each(function () {
+        updateFontSize(this);
+      });
+    }, settings.delay));
+
     return this.each(function () {
-      var $this = $(this);
-
-      $(window).on('resize orientationchange', debounce(function () {
-        updateFontSize($this);
-      }, settings.delay));
-
-      init($this);
+      init(this);
     });
   };
 }(jQuery));
