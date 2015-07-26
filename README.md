@@ -1,5 +1,5 @@
 # Full Width Headlines
-A [jQuery](jq) plugin for creating headlines that span the full width utilizing the CSS flexbox model. See some examples here: https://flekschas.github.io/FullWidthHeadline
+A [jQuery][jq] plugin for creating headlines that span the full width utilizing the CSS flexbox model. See some examples here: https://flekschas.github.io/FullWidthHeadline
 
 ## Installation
 
