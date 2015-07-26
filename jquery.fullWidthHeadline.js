@@ -1,5 +1,5 @@
 /*
- * FullWidthHeadline.js v0.1
+ * FullWidthHeadline.js v1.0.1
  * Copyright (c) 2015, Fritz Lekschas http://f.lekschas.de
  *
  * FullWidthHeadline.js is licensed under the MIT License.
@@ -52,24 +52,20 @@
 
     function init ($el) {
       var text = $el.text(),
-          chars = text.split(' '),
+          words = text.split(' '),
           inject = '<span class="container">';
 
       numChars = text.length;
 
-      if (chars.length) {
-        $(chars).each(function(i, character) {
-          if (character === ' ') {
-            inject += ' ';
-          } else {
-            inject += '<span class="char'+ (i + 1) +'" aria-hidden="true">'+ character +'</span> ';
-          }
-        });
+      if (words.length) {
+        for (var i = 0, len = words.length; i < len; i++) {
+          inject += '<span class="word-'+ (i + 1) +'">'+ words[i] +'</span> ';
+        }
 
+        // Remove last white space and close container
         $container = $($.parseHTML(inject.slice(0, -1) + '</span>'));
 
         $el
-          .attr('aria-label', text)
           .empty()
           .append($container);
 
