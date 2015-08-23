@@ -32,11 +32,16 @@ A [jQuery][jq] plugin for creating headlines that span the full width utilizing 
     -webkit-justify-content: space-between;
         -ms-flex-pack: justify;
             justify-content: space-between;
+            
     text-align: center;
     text-transform: uppercase;
     line-height: 1;
     overflow: hidden;
     white-space: nowrap;
+    -webkit-transition: font-size 0.3s ease;
+       -moz-transition: font-size 0.3s ease;
+         -o-transition: font-size 0.3s ease;
+            transition: font-size 0.3s ease;
 }
 
 .full-width-hl .centered-words {

@@ -65,21 +65,26 @@
       el.numWords = words.length;
 
       if (el.numWords) {
-        for (var i = 0, len = words.length; i < len; i++) {
-          inject += '<span class="word-'+ (i + 1) +'">'+ words[i] +'</span> ';
+        $container = $el.find('.container');
+
+        if (!$el.find('.container').length) {
+          for (var i = 0, len = words.length; i < len; i++) {
+            inject += '<span class="word-'+ (i + 1) +'">'+ words[i] +'</span> ';
+          }
+
+          // Remove last white space and close container
+          $container = $($.parseHTML(inject.slice(0, -1) + '</span>'));
+
+          $el
+            .empty()
+            .append($container);
         }
 
-        // Remove last white space and close container
-        $container = $($.parseHTML(inject.slice(0, -1) + '</span>'));
         el.$container = $container;
 
         if (words.length < 3) {
           $container.addClass('centered-words');
         }
-
-        $el
-          .empty()
-          .append($container);
 
         // Set default font to the elements font family
         var styles;
