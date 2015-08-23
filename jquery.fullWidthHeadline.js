@@ -1,5 +1,5 @@
 /*
- * FullWidthHeadline.js v1.0.0
+ * FullWidthHeadline.js v1.1.0
  * Copyright (c) 2015, Fritz Lekschas http://f.lekschas.de
  *
  * FullWidthHeadline.js is licensed under the MIT License.
